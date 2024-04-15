@@ -6,7 +6,7 @@ const sentences =
   How vexingly quick daft zebras jump!`
 ;
 
-let time=30;
+let time=10;
 let settimer;
 let ans;
 let count =0;
@@ -21,7 +21,7 @@ const timer = document.getElementById("timer");
 const speedElement = document.getElementById("speed");
 const accElement = document.getElementById("accuracy");
 const retryBtn =document.getElementById("retry-btn");
-
+result.style.display = "none";
 
 startBtn.addEventListener('click',()=>{
     typingArea.disabled = false;
@@ -52,10 +52,10 @@ function endTest(){
 }
 
 function displayResult(){
-    ans = typingArea.value;
+    ans = typingArea.value.trim();
     typingArea.value ="";
     console.log(ans);
-    result.display = block;
+    result.style.display = "block";
     for(let i=0;i<sentences.length && i<ans.length;i++)
     {
         if(ans[i]===sentences[i])
@@ -64,15 +64,20 @@ function displayResult(){
         console.log(count);
     }
 
-    speed=(count/30)*60;
+    speed=(count/10)*60;
     accuracy = (count/sentences.length)*100;
-    speedElement.textContent= ` ${speed}`;
-    accElement.textContent = `${accuracy}`;
+    speedElement.textContent= ` ${speed.toFixed(2)}`;
+    accElement.textContent = `${accuracy.toFixed(2)}`;
 }
 
 retryBtn.addEventListener('click',()=>
 {
     startBtn.disabled = false;
-    result.display = "none";
+    result.style.display = "none";
     typingArea.value = "";
+    time = 10;
+    count =0;
+    speed = 0;
+    accuracy = 0;
+   
 });
